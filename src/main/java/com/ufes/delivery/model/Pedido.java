@@ -115,29 +115,29 @@ public class Pedido {
     public double calcularValorTotal(ILogger logger) {
         double valorTotal = getValorPedido() + getTaxaEntregaComDesconto();
         Optional<CupomDescontoPedido> cupomAplicado = getCupomAplicado();
+        
+        Map<String, String> dadosExtra = new HashMap<>();
+        dadosExtra.put("codigo_pedido", this.codigo);
+        dadosExtra.put("nome_cliente", this.cliente.getNome());
 
+        try {
+            LogEntry log = new LogEntry(
+                UsuarioLogadoService.getNomeUsuario(),
+                LocalDate.now(),
+                LocalTime.now(),
+                "Calculo do valor total do pedido (calcularValorTotal)",
+                dadosExtra
+            );
+            logger.registrar(log);
+        } catch (Exception e) {
+            System.out.println("Erro ao gravar log: " + e.getMessage());
+        }
+        
         if (cupomAplicado.isPresent()) {
             CupomDescontoPedido cupom = cupomAplicado.get();
             return valorTotal - valorTotal * cupom.getPercentual() / 100;
         }
-        
-    Map<String, String> dadosExtra = new HashMap<>();
-    dadosExtra.put("codigo_pedido", this.codigo);
-    dadosExtra.put("nome_cliente", this.cliente.getNome());
 
-    try {
-        LogEntry log = new LogEntry(
-            UsuarioLogadoService.getNomeUsuario(),
-            LocalDate.now(),
-            LocalTime.now(),
-            "Calculo do valor total do pedido (calcularValorTotal)",
-            dadosExtra
-        );
-        logger.registrar(log);
-    } catch (Exception e) {
-        System.out.println("Erro ao gravar log: " + e.getMessage());
-    }
-        
         return valorTotal;
     }
     

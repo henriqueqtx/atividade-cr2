@@ -12,6 +12,7 @@ import com.mycompany.logsauditoria.interfaces.ILogger;
 import com.mycompany.logsauditoria.JsonLogger;
 import com.mycompany.logsauditoria.LogEntry;
 import com.ufes.delivery.util.UsuarioLogadoService;
+import java.io.IOException;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,8 +24,7 @@ public class UmCasoDeUsoDePedido {
 
     public static void main(String[] args) {
         
-        // 1. Instancia o Logger uma única vez (Pode trocar para CSVLogger ou XmlLogger facilmente)
-        ILogger logger = new JsonLogger("delivery_auditoria.jsonl");
+        ILogger logger = new JsonLogger("delivery_auditoria.json");
 
         Cliente cliente = new Cliente("Maria", "Ouro", 1, "Limoeiro", "Cidade Maravilhosa", "Castelo");
         LocalDateTime dataPedido = LocalDateTime.now();
@@ -70,7 +70,7 @@ public class UmCasoDeUsoDePedido {
                     "Falha ao aplicar cupom (Exceção)",
                     dadosFalha
                 ));
-            } catch (Exception logEx) {
+            } catch (IOException logEx) {
                 System.out.println("Não foi possível gravar o log da falha.");
             }
         }
