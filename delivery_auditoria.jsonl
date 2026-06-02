@@ -1,0 +1,3 @@
+{"usuario":"Balcão PDV 1","data":"2026-06-02","hora":"18:56:58.168317200","operacao":"Aplicação de cupom de desconto nas taxas de entrega","dados":{"codigo_pedido":"PD-01","nome_cliente":"Maria"}}
+{"usuario":"Fulano de tal","data":"2026-06-02","hora":"18:56:58.174473500","operacao":"Aplicação de cupom de desconto no valor total do pedido (aplicarCupom)","dados":{"codigo_pedido":"PD-01","nome_cliente":"Maria"}}
+{"usuario":"Gerente","data":"2026-06-02","hora":"18:56:58.176489900","operacao":"Falha ao aplicar cupom (Exceção)","dados":{"motivo_falha":"Cupom inexistente: CUPOMINEXISTENTE","codigo_pedido":"PD-01"}}

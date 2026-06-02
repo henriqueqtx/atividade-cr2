@@ -7,6 +7,7 @@ com\ufes\delivery\desconto\taxa\entrega\FormaDescontoTaxaPorBairro.class
 com\ufes\delivery\model\CupomDescontoEntrega.class
 com\ufes\delivery\desconto\taxa\entrega\CalculadoraTaxaDescontoPedidoService.class
 com\ufes\delivery\repository\CupomRepositoryEmMemoria.class
+com\ufes\delivery\util\UsuarioLogadoService.class
 com\ufes\delivery\desconto\taxa\entrega\FormaDescontoTipoItem.class
 com\ufes\delivery\desconto\pedido\AplicadorCupomPedidoService.class
 com\ufes\delivery\UmCasoDeUsoDePedido.class

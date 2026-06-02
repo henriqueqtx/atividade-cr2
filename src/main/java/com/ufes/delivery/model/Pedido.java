@@ -1,13 +1,21 @@
 package com.ufes.delivery.model;
 
+import com.mycompany.logsauditoria.LogEntry;
+import com.mycompany.logsauditoria.interfaces.ILogger;
 import com.ufes.delivery.configuracao.ConfiguracaoService;
+import com.ufes.delivery.util.UsuarioLogadoService;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 public class Pedido {
+    private String codigo;
     private double taxaEntrega = ConfiguracaoService.getTaxaEntregaPadrao();
     private List<Item> itens = new ArrayList<>();
     private Cliente cliente;
@@ -16,7 +24,7 @@ public class Pedido {
 
     private CupomDescontoPedido cupomPedidoAplicado;
 
-    public Pedido(LocalDateTime data, Cliente cliente) {
+    public Pedido(LocalDateTime data, Cliente cliente, String codigo) {
         if (data == null) {
             throw new IllegalArgumentException("Data do pedido deve ser informada");
         }
@@ -27,6 +35,7 @@ public class Pedido {
 
         this.cliente = cliente;
         this.data = data;
+        this.codigo = codigo;
     }
 
     public void adicionarItem(Item objeto) {
@@ -103,6 +112,35 @@ public class Pedido {
         return taxaComDesconto;
     }
 
+    public double calcularValorTotal(ILogger logger) {
+        double valorTotal = getValorPedido() + getTaxaEntregaComDesconto();
+        Optional<CupomDescontoPedido> cupomAplicado = getCupomAplicado();
+
+        if (cupomAplicado.isPresent()) {
+            CupomDescontoPedido cupom = cupomAplicado.get();
+            return valorTotal - valorTotal * cupom.getPercentual() / 100;
+        }
+        
+    Map<String, String> dadosExtra = new HashMap<>();
+    dadosExtra.put("codigo_pedido", this.codigo);
+    dadosExtra.put("nome_cliente", this.cliente.getNome());
+
+    try {
+        LogEntry log = new LogEntry(
+            UsuarioLogadoService.getNomeUsuario(),
+            LocalDate.now(),
+            LocalTime.now(),
+            "Calculo do valor total do pedido (calcularValorTotal)",
+            dadosExtra
+        );
+        logger.registrar(log);
+    } catch (Exception e) {
+        System.out.println("Erro ao gravar log: " + e.getMessage());
+    }
+        
+        return valorTotal;
+    }
+    
     public double calcularValorTotal() {
         double valorTotal = getValorPedido() + getTaxaEntregaComDesconto();
         Optional<CupomDescontoPedido> cupomAplicado = getCupomAplicado();
@@ -111,9 +149,9 @@ public class Pedido {
             CupomDescontoPedido cupom = cupomAplicado.get();
             return valorTotal - valorTotal * cupom.getPercentual() / 100;
         }
-
         return valorTotal;
     }
+
 
     public LocalDateTime getData() {
         return data;
@@ -130,6 +168,12 @@ public class Pedido {
 
         this.cupomPedidoAplicado = cupomPedidoAplicado;
     }
+
+    public String getCodigo() {
+        return codigo;
+    }
+    
+    
 
     @Override
     public String toString() {
