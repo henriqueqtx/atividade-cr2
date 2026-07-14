@@ -1,0 +1,40 @@
+# Arquivos compilados
+*.class
+*.jar
+*.war
+
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+
+# Logs gerados pelo sistema na máquina local
+delivery_auditoria.json
+*.log
+
+# IDEs (VS Code, IntelliJ, Eclipse)
+.vscode/
+.idea/
+*.iml
+*.iws
+.classpath
+.project
+.settings/
+.metadata/
+
+# Sistema Operacional (Arquivos ocultos que o Windows/Mac criam)
+.DS_Store
+Thumbs.db
+
+# SQLite
+*.sqlite
+*.sqlite3
+*.db
+*.db-shm
+*.db-wal
