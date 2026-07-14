@@ -27,8 +27,7 @@ A demonstração principal do sistema acontece na classe `UmCasoDeUsoDePedido.ja
 
 ```bash
 # 1. Clone este repositório
-git clone [https://github.com/henriqueqtx/atividade-cr2.git](https://github.com/henriqueqtx/atividade-cr2.git)
-
+git clone https://github.com/henriqueqtx/atividade-cr2.git
 # 2. Acesse o diretório do projeto
 cd atividade-cr2
 
@@ -36,8 +35,8 @@ cd atividade-cr2
 mvn clean install
 
 # 4. Execute a demonstração
-mvn exec:java -Dexec.mainClass="com.ufes.delivery.UmCasoDeUsoDePedido"# Atividade CR2
-
+mvn exec:java 
+```
 ## Integrantes do Grupo
 - Marcelo Vieira Gomes
 - Henrique Queiroz Teixeira
