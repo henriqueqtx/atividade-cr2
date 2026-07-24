@@ -33,7 +33,7 @@ A demonstração principal do sistema acontece na classe `UmCasoDeUsoDePedido.ja
 
 ```bash
 # 1. Clone este repositório
-git clone https://github.com/henriqueqtx/sistema-delivery-auditoria/
+git clone https://github.com/henriqueqtx/sistema-delivery-auditoria.git
 
 # 2. Acesse o diretório do projeto
 cd sistema-delivery-auditoria
